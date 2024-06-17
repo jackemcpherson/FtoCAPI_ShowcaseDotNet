@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "9myh6bgaSdoBtQsVVJCIH4EHY6jOFqEP1YZQ443FZqs=",
+  "Source": "FtoCAPI_ShowcaseDotNet",
+  "BasePath": "_content/FtoCAPI_ShowcaseDotNet",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

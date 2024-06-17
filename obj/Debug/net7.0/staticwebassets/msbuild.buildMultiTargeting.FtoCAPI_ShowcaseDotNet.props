@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FtoCAPI_ShowcaseDotNet.props" />
+</Project>
