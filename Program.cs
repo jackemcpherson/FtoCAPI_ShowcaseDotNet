@@ -13,6 +13,12 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FtoCAPI_ShowcaseDotNet", Version = "v1" });
 });
 
+// Change the port to 8000
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(8000);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
