@@ -21,19 +21,15 @@ builder.WebHost.ConfigureKestrel(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable Swagger UI
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    // Enable Swagger UI
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FtoCAPI_ShowcaseDotNet v1");
-        c.RoutePrefix = "docs";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FtoCAPI_ShowcaseDotNet v1");
+    c.RoutePrefix = "docs";
+});
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
