@@ -1,5 +1,5 @@
 # Use the official .NET SDK image as the base image
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,8 +7,13 @@ WORKDIR /app
 # Copy the project file to the working directory
 COPY *.csproj ./
 
-# Restore the project dependencies
-RUN dotnet restore
+# Restore the project dependencies with verbose output and retry
+RUN dotnet nuget list source && \
+    dotnet restore --verbosity detailed || \
+    (echo "Retrying restore with HTTP source..." && \
+     dotnet nuget disable source "https://api.nuget.org/v3/index.json" && \
+     dotnet nuget enable source "http://api.nuget.org/v3/index.json" && \
+     dotnet restore --verbosity detailed)
 
 # Copy the entire project to the working directory
 COPY . ./
@@ -17,7 +22,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Use the official ASP.NET Core runtime image as the base image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 # Set the working directory in the container
 WORKDIR /app
